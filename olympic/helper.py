@@ -104,8 +104,8 @@ def most_successful_athlete(df, country):
 
 # Distribution comparison in regards with height and weight
 def weight_vs_height(df, sport):
-    athlete_df = df.drop_duplicates(subset = ['Name', 'region'])
-    athlete_df['Medal'].fillna('No Medal', inplace = True)
+    athlete_df = df.drop_duplicates(subset = ['Name', 'region']).copy()
+    athlete_df = athlete_df['Medal'].fillna('No Medal')
     if sport != 'Overall':
         temp_df = athlete_df[athlete_df['Sport'] == sport]
         return temp_df

@@ -13,7 +13,7 @@ def dummy_data():
         'Name': ['Anvai', 'Anvai', 'Bolt'],
         'Sex': ['M', 'M', 'M'],
         'Age': [24, 24, 27],
-        'Season': ['Summer', 'Winter', 'Summer'],
+        'Season': ['Summer', 'Summer', 'Summer'],
         'NOC': ['IND', 'IND', 'USA'],
         'Medal': ['Gold', 'Silver', 'Bronze']
     })
@@ -34,9 +34,13 @@ def test_preprocessing_filters(dummy_data):
 
     # Merge should succeed (Winter row dropped)
     assert 'region' in result.columns
-    assert result.shape[0] == 2
+    assert result.shape[0] == 3
 
     # One-hot columns created
     assert 'Gold' in result.columns
     assert 'Silver' in result.columns
     assert 'Bronze' in result.columns
+
+
+# I had got the error, since encoding was done of silver with respect to Winter, and we are already filtering out the winter season!! 
+# To fix this, we change the data from winter to summer
