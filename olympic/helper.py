@@ -1,7 +1,13 @@
 import numpy as np
 import seaborn as sns
 
+# Adding logs to keep a track of key functions
+from utils.logger_config import get_logger
+
+logger = get_logger('helper')   # Instantiating the logging
+
 def fetch_medal_tally(df, year, country):
+    logger.info(f'Fetching medal tally for year: {year}, country: {country}')
     medal_df = df.drop_duplicates(subset = ['Team', 'NOC', 'Games', 'Year', 'City', 'Sport', 'Event', 'Medal'])
 
     flag = 0
@@ -55,6 +61,7 @@ def data_over_time(df, col):
 
 # Most successful athletes in each sport
 def most_successful(df, sport):
+    logger.info(f'Finding most successful athletes in sport: {sport}')
     temp_df = df.dropna(subset= ['Medal']) # We do not want the athletes with no medals..
 
     if sport != 'Overall':
@@ -67,6 +74,7 @@ def most_successful(df, sport):
 
 # Year-wise Medal tally (Country-wise)
 def year_wise_medal_tally(df, country):
+    logger.info(f'Calculating year wise medal tally for: {country}')
     temp_df = df.dropna(subset=['Medal'])
     temp_df.drop_duplicates(subset=['Team', 'NOC', 'Year', 'Sport', 'Event', 'City', 'Medal'], inplace=True)
 

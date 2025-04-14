@@ -1,0 +1,1 @@
+# This tells python that olympic is a package, and allow us to import from it

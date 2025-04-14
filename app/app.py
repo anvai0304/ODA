@@ -1,14 +1,19 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pandas as pd
 import streamlit as st
-import preprocessor, helper
+from olympic import preprocessor as preprocessor, helper as helper
 import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 
 # Load the data
-df = pd.read_csv('athlete_events.csv')
-regions_df = pd.read_csv('noc_regions.csv')
+df = pd.read_csv('../data/athlete_events.csv')
+regions_df = pd.read_csv('../data/noc_regions.csv')
 
 df = preprocessor.preprocess(df, regions_df)
 
