@@ -142,6 +142,24 @@ if user == 'Country-wise Analysis':
     top_10_athletes = helper.most_successful_athlete(df, selected_country)
     st.table(top_10_athletes)
 
+    #  AI Summary Section
+    st.header('AI-Powered Summary')
+    if st.button("Generate Summary"):
+        with st.spinner("Thinking with Gemini AI..."):
+            summary = generate_country_summary(selected_country, country_df, top_10_athletes)
+            st.success(summary)
+
+        #  Log the summary
+            from utils.logger_config import get_logger
+            logger = get_logger("ai_summary")
+            logger.info(f"Generated summary for {selected_country}: {summary}")
+
+        #  Save to .txt file
+        os.makedirs("summaries", exist_ok=True)
+        with open(f"summaries/{selected_country}_summary.txt", "w") as f:
+            f.write(summary)
+
+
 
 # Athlete-wise Analysis
 if user == 'Athlete-wise Analysis':
@@ -175,10 +193,5 @@ if user == 'Athlete-wise Analysis':
     fig = px.line(final, x = 'Year', y = ['Male', 'Female'])
     st.plotly_chart(fig)
 
-# AI Summary
-st.header('Summary')
-if st.button('Generate Summary'):
-    with st.spinner('Thinking with AI...'):
-        summary = generate_country_summary(selected_country, country, top_10_athletes)
-        st.info(summary)
+
     
