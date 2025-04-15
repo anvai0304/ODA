@@ -10,6 +10,7 @@ import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
+from olympic.ai_summarizer import generate_country_summary
 
 # Load the data
 df = pd.read_csv('../data/athlete_events.csv')
@@ -173,4 +174,11 @@ if user == 'Athlete-wise Analysis':
     final = helper.men_vs_women(df)
     fig = px.line(final, x = 'Year', y = ['Male', 'Female'])
     st.plotly_chart(fig)
+
+# AI Summary
+st.header('Summary')
+if st.button('Generate Summary'):
+    with st.spinner('Thinking with AI...'):
+        summary = generate_country_summary(selected_country, country, top_10_athletes)
+        st.info(summary)
     
